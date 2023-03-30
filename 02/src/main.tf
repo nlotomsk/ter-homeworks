@@ -10,15 +10,16 @@ resource "yandex_vpc_subnet" "develop" {
 
 
 data "yandex_compute_image" "ubuntu" {
-  family = "ubuntu-2004-lts"
+  family = var.vm_name
 }
-resource "yandex_compute_instance" "platform" {
-  name        = "netology-develop-platform-web"
-  platform_id = "standard-v1"
+
+resource "yandex_compute_instance" "platform-1" {
+  name        = "netology-${local.env}-${local.project}-${local.role.0}"
+  platform_id = var.vm_web_instance_platform_id
   resources {
-    cores         = 2
-    memory        = 4
-    core_fraction = 5
+    cores         = var.vm_web_resources.cores
+    memory        = var.vm_web_resources.memory
+    core_fraction = var.vm_web_resources.core_fraction
   }
   boot_disk {
     initialize_params {
@@ -26,16 +27,43 @@ resource "yandex_compute_instance" "platform" {
     }
   }
   scheduling_policy {
-    preemptible = true
+    preemptible = var.vm_web_instance_scheduling_policy
   }
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
-    nat       = true
+    nat       = var.vm_web_instance_network_interface_nat
   }
 
   metadata = {
-    serial-port-enable = 1
-    ssh-keys           = "ubuntu:${var.vms_ssh_root_key}"
+    serial-port-enable = var.vm_metadata["serial-port-enable"]
+    ssh-keys           = var.vm_metadata["ssh-keys"]
+  }
+
+}
+
+resource "yandex_compute_instance" "platform-2" {
+  name        = "netology-${local.env}-${local.project}-${local.role.1}"
+  platform_id = var.vm_db_instance_platform_id
+  resources {
+    cores         = var.vm_db_resources.cores
+    memory        = var.vm_db_resources.memory
+    core_fraction = var.vm_db_resources.core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_db_instance_scheduling_policy
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_db_instance_network_interface_nat
+  }
+  metadata = {
+    serial-port-enable = var.vm_metadata["serial-port-enable"]
+    ssh-keys           = var.vm_metadata["ssh-keys"]
   }
 
 }
