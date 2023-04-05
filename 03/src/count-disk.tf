@@ -2,7 +2,6 @@ resource "yandex_compute_disk" "disk-hdd" {
     count=3
     name       = "disk-hdd-${count.index+1}"
     type       = "network-hdd"
-    /*zone       = "<зона_доступности>"*/
     size       = var.count_disk_size
 }
 

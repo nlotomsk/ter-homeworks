@@ -5,9 +5,6 @@ resource "yandex_compute_instance" "platform-2" {
     1 = var.forwarded_settings_two[0]
   }
     name = "netology-${local.env}-${local.project}-${local.role.1}-${each.value.vm_name}"
-    /*tags = {
-            Name = "${each.value}"
-  }*/
   
   platform_id = var.vm_db_instance_platform_id
   resources {
