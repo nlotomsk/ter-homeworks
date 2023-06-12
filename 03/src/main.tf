@@ -13,15 +13,28 @@ data "yandex_compute_image" "ubuntu" {
 }
 
 
+# resource "local_file" "hosts_cfg" {
+#   content = templatefile("${path.module}/hosts.tftpl",
+
+#     { 
+#        for_each-vm = yandex_compute_instance.platform-2,
+#        count-vm = yandex_compute_instance.web,
+#        count-disk-vm = yandex_compute_instance.wm-disk
+#     } 
+#   )
+
+#   filename = "${abspath(path.module)}/inventory"
+# }
+
 resource "local_file" "hosts_cfg" {
-  content = templatefile("${path.module}/hosts.tftpl",
+  content = templatefile("${path.module}/hosts2.tftpl",
 
     { 
        for_each-vm = yandex_compute_instance.platform-2,
        count-vm = yandex_compute_instance.web,
-       count-disk-vm = yandex_compute_instance.wm-disk
+       #count-disk-vm = yandex_compute_instance.wm-disk
     } 
   )
 
-  filename = "${abspath(path.module)}/inventory"
+  filename = "/home/senibratov/Документы/github/mnt-homeworks/08-ansible-02-playbook/playbook/inventory/inventory.yml"
 } 

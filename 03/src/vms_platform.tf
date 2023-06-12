@@ -79,7 +79,7 @@ variable "forwarded_settings_one" {
     disk=number
   }))
   default = [{
-    vm_name="one", 
+    vm_name="01", 
     cpu=2, 
     ram=4, 
     disk=15,
@@ -97,7 +97,7 @@ variable "forwarded_settings_two" {
     disk=number
   }))
   default = [{
-    vm_name="two", 
+    vm_name="02", 
     cpu=4, 
     ram=6, 
     disk=25,

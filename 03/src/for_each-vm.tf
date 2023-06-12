@@ -2,9 +2,10 @@ resource "yandex_compute_instance" "platform-2" {
     depends_on = [yandex_compute_instance.web]
   for_each = {
     0 = var.forwarded_settings_one[0]
-    1 = var.forwarded_settings_two[0]
+    #1 = var.forwarded_settings_two[0]
   }
-    name = "netology-${local.env}-${local.project}-${local.role.1}-${each.value.vm_name}"
+    #name = "netology-${local.env}-${local.project}-${local.role.1}-${each.value.vm_name}"
+    name = "${local.role.0}-${each.value.vm_name}"
   
   platform_id = var.vm_db_instance_platform_id
   resources {

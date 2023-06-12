@@ -1,5 +1,5 @@
 resource "yandex_compute_disk" "disk-hdd" {
-    count=3
+    count=0
     name       = "disk-hdd-${count.index+1}"
     type       = "network-hdd"
     size       = var.count_disk_size

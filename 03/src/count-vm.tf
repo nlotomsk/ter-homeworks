@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "web" {
-  count       = 2
-  name        = "netology-${local.env}-${local.project}-${local.role.0}-${count.index}"
+  count       = 1
+  name        = "${local.role.1}-0${count.index+1}"
   platform_id = var.vm_web_instance_platform_id
   resources {
     cores         = var.vm_web_resources.cores
