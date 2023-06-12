@@ -36,5 +36,5 @@ resource "local_file" "hosts_cfg" {
     } 
   )
 
-  filename = "/home/senibratov/Документы/github/mnt-homeworks/08-ansible-02-playbook/playbook/inventory/inventory.yml"
+  filename = "/home/senibratov/github/mnt-homeworks/08-ansible-02-playbook/playbook/inventory/inventory.yml"
 } 
